@@ -1,7 +1,10 @@
 ﻿using System.Drawing;
+using BookList.Core.Validators;
+using FluentValidation.Attributes;
 
 namespace BookList.Core.Models
 {
+    [Validator(typeof(BookValidator))]
     public class Book
     {
         public int BookId { get; set; }

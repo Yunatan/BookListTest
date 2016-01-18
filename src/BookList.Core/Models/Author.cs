@@ -1,5 +1,9 @@
-﻿namespace BookList.Core.Models
+﻿using BookList.Core.Validators;
+using FluentValidation.Attributes;
+
+namespace BookList.Core.Models
 {
+    [Validator(typeof(AuthorValidator))]
     public class Author
     {
         public int AuthorId { get; set; }

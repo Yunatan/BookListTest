@@ -1,19 +1,25 @@
 ﻿using BookList.Core.Models;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using BookList.Core.Repositories;
-using BookList.Core.Repositories.Memory;
+using Castle.Core.Internal;
 
 namespace BookList.Web.Controllers
 {
     public class BookController : Controller
     {
-        readonly IBookRepository bookRepository = new MemoryBookRepository(null);
+        protected readonly IBookRepository bookRepository;
+
+        public BookController(IBookRepository bookRepository)
+        {
+            this.bookRepository = bookRepository;
+        }
 
         [HttpPost]
-        public JsonResult BookList()
+        public JsonResult BookList(string jtSorting)
         {
-            List<Book> books = bookRepository.GetAllBooks();
+            var books = jtSorting.IsNullOrEmpty()
+                ? bookRepository.GetAllBooks()
+                : bookRepository.GetBooksSorted(jtSorting);
             return Json(new { Result = "OK", Records = books });
         }
 
@@ -26,7 +32,7 @@ namespace BookList.Web.Controllers
                 {
                     Result = "ERROR",
                     Message = "Form is not valid! " +
-                  "Please correct it and try again."
+                              "Please correct it and try again."
                 });
             }
 
@@ -43,7 +49,7 @@ namespace BookList.Web.Controllers
                 {
                     Result = "ERROR",
                     Message = "Form is not valid! " +
-                    "Please correct it and try again."
+                              "Please correct it and try again."
                 });
             }
 

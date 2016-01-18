@@ -17,7 +17,7 @@ namespace BookList.Core.Repositories.Memory
                     Pages = 395,
                     PublishDate = 1994,
                     Isbn = "0-201-63361-2",
-                    Publisher = "Addison-Wesley"
+                    Publisher = "Addison–Wesley"
                 },
                 new Book
                 {

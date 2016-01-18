@@ -1,22 +1,27 @@
-﻿using BookList.Core.Models;
-using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using BookList.Core.Models;
+using BookList.Core.Repositories;
 
-namespace AuthorList.Web.Controllers
+namespace BookList.Web.Controllers
 {
     public class AuthorController : Controller
     {
-        //IBookRepository bookRepository = new MemoryBookRepository();
+        protected readonly IAuthorRepository authorRepository;
 
-        [HttpPost]
-        public JsonResult AuthorList(Guid bookId)
+        public AuthorController(IAuthorRepository authorRepository)
         {
-            //List<Author> authors = bookRepository.GetAllBooks().First(x => x.BookId.Equals(bookId)).Authors;
-            return Json(new { Result = "OK", });
+            this.authorRepository = authorRepository;
         }
 
         [HttpPost]
-        public JsonResult CreateAuthor(Author author, Guid bookId)
+        public JsonResult AuthorList(int bookId)
+        {
+            var authors = authorRepository.GetAuthorsOfBook(bookId);
+            return Json(new { Result = "OK", Records = authors });
+        }
+
+        [HttpPost]
+        public JsonResult CreateAuthor(Author author)
         {
             if (!ModelState.IsValid)
             {
@@ -24,18 +29,16 @@ namespace AuthorList.Web.Controllers
                 {
                     Result = "ERROR",
                     Message = "Form is not valid! " +
-                  "Please correct it and try again."
+                              "Please correct it and try again."
                 });
             }
 
-            //var book = bookRepository.GetAll().First(x => x.Id.Equals(bookId));
-            //book.Authors.Add(author);
-            //bookRepository.Save(book);
-            return Json(new { Result = "OK", Record = author });
+            var addeAuthor = authorRepository.AddAuthor(author);
+            return Json(new { Result = "OK", Record = addeAuthor });
         }
 
         [HttpPost]
-        public JsonResult UpdateAuthor(Author author, Guid bookId)
+        public JsonResult UpdateAuthor(Author author)
         {
             if (!ModelState.IsValid)
             {
@@ -43,18 +46,18 @@ namespace AuthorList.Web.Controllers
                 {
                     Result = "ERROR",
                     Message = "Form is not valid! " +
-                    "Please correct it and try again."
+                              "Please correct it and try again."
                 });
             }
 
-            //bookRepository.Update(author);
+            authorRepository.UpdateAuthor(author);
             return Json(new { Result = "OK" });
         }
 
         [HttpPost]
-        public JsonResult DeleteAuthor(Guid authorId, Guid bookId)
+        public JsonResult DeleteAuthor(int authorId)
         {
-            //bookRepository.Delete(authorId);
+            authorRepository.DeleteAuthor(authorId);
             return Json(new { Result = "OK" });
         }
     }

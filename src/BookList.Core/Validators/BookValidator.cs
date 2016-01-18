@@ -16,7 +16,7 @@ namespace BookList.Core.Validators
             RuleFor(book => book.Isbn).Must(HaveValidIsbn);
         }
 
-        private bool HaveValidIsbn(string isbn)
+        private static bool HaveValidIsbn(string isbn)
         {
             if (string.IsNullOrEmpty(isbn))
             {
