@@ -1,0 +1,108 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>
+    <link href="~/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" />
+    <script src="~/Scripts/jtable/jquery.jtable.js"></script>
+</head>
+<body>
+    <div id="BookTable" ></div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#BookTable').jtable({
+            title: 'The Book List',
+            sorting: true,
+            defaultSorting: 'Title ASC',
+            paging: false,
+            actions: {
+                listAction: '@Url.Action("BookList", "Book")',
+                deleteAction: '@Url.Action("DeleteBook", "Book")',
+                updateAction: '@Url.Action("UpdateBook", "Book")',
+                createAction: '@Url.Action("CreateBook", "Book")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Title: {
+                    title: 'Title',
+                    //width: '30%'
+                },
+                Publisher: {
+                    title: 'Publisher',
+                },
+                PublishDate: {
+                    title: 'Publish Date',
+                },
+                Pages: {
+                    title: 'Pages',
+                    //width: '13%'
+                },
+                Isbn: {
+                    title: 'ISBN',
+                    //width: '12%'
+                },
+                Authors: {
+                    title: 'Authors',
+                    //width: '15%'
+                    sorting: false,
+                    edit: false,
+                    create: false,
+                    display: function (bookData) {
+                        var $authorsLink = $('<a href="#" title="Edit Authors">Edit Authors</a>');
+                        return $authorsLink;
+                    }
+                }
+            }
+
+            //Event handlers...
+        });
+
+        $authorsLink.click(function () {
+            $('#BookTable').jtable('openChildTable',
+                $authorsLink.closest('tr'),
+                {
+                    title: bookData.record.Title + ' - Authors',
+                    actions: {
+                        listAction: '@Url.Action("AuthorList", "Author")' + '?bookId=' + bookData.record.Id,
+                        deleteAction: '@Url.Action("DeleteAuthor", "Author")' + '?bookId=' + bookData.record.Id,
+                        updateAction: '@Url.Action("UpdateAuthor", "Author")' + '?bookId=' + bookData.record.Id,
+                        createAction: '@Url.Action("CreateAuthor", "Author")' + '?bookId=' + bookData.record.Id
+                    },
+                    fields: {
+                        Id: {
+                            key: true,
+                            create: false,
+                            edit: false,
+                            list: false
+                        },
+                        FirstName: {
+                            title: 'First Name',
+                        },
+                        LasttName: {
+                            title: 'Lastt Name',
+                            //width: '30%'
+                        }
+                    }
+                }, function (data) { //opened handler
+                    data.childTable.jtable('load');
+                });
+        });
+
+        $('#BookTable').jtable('load');
+    });
+</script>
