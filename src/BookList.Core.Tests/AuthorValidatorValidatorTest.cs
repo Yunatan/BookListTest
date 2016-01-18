@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using BookList.Core.Validators;
 using FluentValidation.TestHelper;
-using System;
 
 namespace BookList.Core.Tests
 {

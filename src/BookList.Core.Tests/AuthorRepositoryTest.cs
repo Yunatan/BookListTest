@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using BookList.Core.Models;
 using BookList.Core.Repositories;
 using BookList.Core.Repositories.Memory;
