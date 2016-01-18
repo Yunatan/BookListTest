@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Hik.JTable.Repositories.Memory
+﻿namespace BookList.Core.Repositories.Memory
 {
     public class MemoryRepositoryContainer : IRepositoryContainer
     {
@@ -14,29 +9,8 @@ namespace Hik.JTable.Repositories.Memory
             _dataSource = dataSource;
         }
 
-        public ICityRepository CityRepository
-        {
-            get { return new MemoryCityRepository(_dataSource); }
-        }
+        public IAuthorRepository AuthorRepository => new MemoryAuthorRepository(_dataSource);
 
-        public IExamRepository ExamRepository
-        {
-            get { return new MemoryExamRepository(_dataSource); }
-        }
-
-        public IPersonRepository PersonRepository
-        {
-            get { return new MemoryPersonRepository(_dataSource); }
-        }
-
-        public IPhoneRepository PhoneRepository
-        {
-            get { return new MemoryPhoneRepository(_dataSource); }
-        }
-
-        public IStudentRepository StudentRepository
-        {
-            get { return new MemoryStudentRepository(_dataSource); }
-        }
+        public IBookRepository BookRepository => new MemoryBookRepository(_dataSource);
     }
 }

@@ -9,7 +9,7 @@ namespace BookList.Core.Models
 {
     public class Book
     {
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
 
         public Image Image { get; set; }
 

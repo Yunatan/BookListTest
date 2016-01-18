@@ -1,11 +1,9 @@
-﻿namespace Hik.JTable.Repositories
+﻿namespace BookList.Core.Repositories
 {
     public interface IRepositoryContainer
     {
-        ICityRepository CityRepository { get; }
-        IExamRepository ExamRepository { get; }
-        IPersonRepository PersonRepository { get; }
-        IPhoneRepository PhoneRepository { get; }
-        IStudentRepository StudentRepository { get; }
+        IAuthorRepository AuthorRepository { get; }
+
+        IBookRepository BookRepository { get; }
     }
 }

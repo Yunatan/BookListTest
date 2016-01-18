@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using BookList.Core.Models;
 
-namespace Hik.JTable.Repositories
+namespace BookList.Core.Repositories
 {
     public interface IAuthorRepository
     {
-        List<Author> GetAuthorsOfStudent(int studentId);
+        List<Author> GetAuthorsOfBook(int bookId);
 
         Author AddAuthor(Author author);
 

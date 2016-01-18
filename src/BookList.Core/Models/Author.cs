@@ -8,9 +8,9 @@ namespace BookList.Core.Models
 {
     public class Author
     {
-        public Guid AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
 
         public string FirstName { get; set; }
 

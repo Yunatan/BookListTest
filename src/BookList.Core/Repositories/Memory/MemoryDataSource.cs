@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BookList.Core.Models;
 
-namespace Hik.JTable.Repositories.Memory
+namespace BookList.Core.Repositories.Memory
 {
     public class MemoryDataSource
     {
