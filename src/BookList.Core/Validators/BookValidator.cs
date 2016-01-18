@@ -18,7 +18,6 @@ namespace BookList.Core.Validators
             RuleFor(book => book.Publisher).Length(1, 30);
             RuleFor(book => book.PublishDate).GreaterThanOrEqualTo(1800);
             RuleFor(book => book.Isbn).Must(HaveValidIsbn);
-            RuleFor(book => book.Authors).SetCollectionValidator(new AuthorValidator());
         }
 
         private bool HaveValidIsbn(string isbn)
@@ -35,7 +34,7 @@ namespace BookList.Core.Validators
             }
 
             var nums = isbn.Select(x => x.ToString()).ToArray();
-            if (nums[9].ToUpper().Equals('X'))
+            if (nums[9].ToUpper().Equals("X"))
             {
                 nums[9] = "10";
             }
@@ -44,7 +43,7 @@ namespace BookList.Core.Validators
             for (var i = 0; i < nums.Length; i++)
             {
                 sum += ((10 - i) * int.Parse(nums[i]));
-            };
+            }
 
             return ((sum % 11) == 0);
         }

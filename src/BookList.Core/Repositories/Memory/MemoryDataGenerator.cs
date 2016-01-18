@@ -33,7 +33,7 @@ namespace BookList.Core.Repositories.Memory
                     BookId = 3,
                     Title = "The Pragmatic Programmer",
                     Pages = 320,
-                    PublishDate = 1999,
+                    PublishDate = 1998,
                     Isbn = "0-201-61622-X",
                     Publisher = "Addison–Wesley"
                 }

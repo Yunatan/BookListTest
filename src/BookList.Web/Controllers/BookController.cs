@@ -1,21 +1,22 @@
 ﻿using BookList.Core.Models;
-using BookList.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using BookList.Core.Repositories;
+using BookList.Core.Repositories.Memory;
 
 namespace BookList.Web.Controllers
 {
     public class BookController : Controller
     {
-        IBookRepository _bookRepository = new MemoryBookRepository();
+        readonly IBookRepository bookRepository = new MemoryBookRepository(null);
 
         [HttpPost]
         public JsonResult BookList()
         {
-            List<Book> books = _bookRepository.GetAll();
+            List<Book> books = bookRepository.GetAllBooks();
             return Json(new { Result = "OK", Records = books });
         }
 
@@ -32,7 +33,7 @@ namespace BookList.Web.Controllers
                 });
             }
 
-            var addedBook = _bookRepository.Save(book);
+            var addedBook = bookRepository.AddBook(book);
             return Json(new { Result = "OK", Record = addedBook });
         }
 
@@ -49,14 +50,14 @@ namespace BookList.Web.Controllers
                 });
             }
 
-            _bookRepository.Update(book);
+            bookRepository.UpdateBook(book);
             return Json(new { Result = "OK" });
         }
 
         [HttpPost]
-        public JsonResult DeleteBook(Guid bookId)
+        public JsonResult DeleteBook(int bookId)
         {
-            _bookRepository.Delete(bookId);
+            bookRepository.DeleteBook(bookId);
             return Json(new { Result = "OK" });
         }
     }

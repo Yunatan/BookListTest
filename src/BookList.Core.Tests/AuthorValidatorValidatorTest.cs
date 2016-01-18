@@ -6,7 +6,7 @@ using System;
 namespace BookList.Core.Tests
 {
     [TestFixture]
-    public class AuthorValidatorTest : TestBase
+    public class AuthorValidatorValidatorTest : ValidatorTestBase
     {
         private AuthorValidator authorValidator;
 

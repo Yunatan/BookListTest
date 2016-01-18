@@ -1,22 +1,23 @@
 ﻿using BookList.Core.Models;
-using BookList.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using BookList.Core.Repositories;
+using BookList.Core.Repositories.Memory;
 
 namespace AuthorList.Web.Controllers
 {
     public class AuthorController : Controller
     {
-        IBookRepository _bookRepository = new MemoryBookRepository();
+        //IBookRepository bookRepository = new MemoryBookRepository();
 
         [HttpPost]
         public JsonResult AuthorList(Guid bookId)
         {
-            List<Author> authors = _bookRepository.GetAll().First(x => x.BookId.Equals(bookId)).Authors;
-            return Json(new { Result = "OK", Records = authors });
+            //List<Author> authors = bookRepository.GetAllBooks().First(x => x.BookId.Equals(bookId)).Authors;
+            return Json(new { Result = "OK", });
         }
 
         [HttpPost]
@@ -32,9 +33,9 @@ namespace AuthorList.Web.Controllers
                 });
             }
 
-            //var book = _bookRepository.GetAll().First(x => x.Id.Equals(bookId));
+            //var book = bookRepository.GetAll().First(x => x.Id.Equals(bookId));
             //book.Authors.Add(author);
-            //_bookRepository.Save(book);
+            //bookRepository.Save(book);
             return Json(new { Result = "OK", Record = author });
         }
 
@@ -51,14 +52,14 @@ namespace AuthorList.Web.Controllers
                 });
             }
 
-            _bookRepository.Update(author);
+            //bookRepository.Update(author);
             return Json(new { Result = "OK" });
         }
 
         [HttpPost]
         public JsonResult DeleteAuthor(Guid authorId, Guid bookId)
         {
-            _bookRepository.Delete(authorId);
+            //bookRepository.Delete(authorId);
             return Json(new { Result = "OK" });
         }
     }

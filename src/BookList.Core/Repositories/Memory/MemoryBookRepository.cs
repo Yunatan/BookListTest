@@ -19,7 +19,7 @@ namespace BookList.Core.Repositories.Memory
             return dataSource.Books.OrderBy(s => s.Title).ToList();
         }
 
-        public List<Book> GetBooks(string sortString)
+        public List<Book> GetBooksSorted(string sortString)
         {
             var query = dataSource.Books.AsQueryable().OrderByField(sortString);
 

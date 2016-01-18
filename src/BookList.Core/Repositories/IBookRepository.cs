@@ -7,7 +7,7 @@ namespace BookList.Core.Repositories
     {
         List<Book> GetAllBooks();
 
-        List<Book> GetBooks(string sorting);
+        List<Book> GetBooksSorted(string sorting);
 
         Book AddBook(Book book);
 

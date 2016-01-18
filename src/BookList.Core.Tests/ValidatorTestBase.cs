@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookList.Core.Tests
 {
-    public class TestBase
+    public class ValidatorTestBase
     {
         protected static string CreateStringWithLength(int length)
         {

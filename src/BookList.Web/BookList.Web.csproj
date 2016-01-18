@@ -323,10 +323,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BookList.Core\BookList.Core.csproj">
       <Project>{4289d13f-295f-49bb-b8b0-c57394eadd14}</Project>

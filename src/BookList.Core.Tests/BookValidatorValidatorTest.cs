@@ -7,7 +7,7 @@ using System.Drawing;
 namespace BookList.Core.Tests
 {
     [TestFixture]
-    public class BookValidatorTest : TestBase
+    public class BookValidatorValidatorTest : ValidatorTestBase
     {
         private BookValidator bookValidator;
 
