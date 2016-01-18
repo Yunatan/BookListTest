@@ -14,7 +14,6 @@
     }
 
     if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
-
-    //this will reload the page, it's likely better to store this until finished
-    document.location.search = kvp.join('&');
+    kvp = kvp.filter(Boolean);
+    window.history.pushState(value, key, '?' + kvp.join('&'));
 }

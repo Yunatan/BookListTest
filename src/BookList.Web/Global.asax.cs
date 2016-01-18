@@ -7,6 +7,8 @@ using BookList.Web.Controllers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using FluentValidation.Mvc;
+using BookList.Web.App_Start;
+using System.Web.Optimization;
 
 namespace BookList.Web
 {
@@ -16,7 +18,7 @@ namespace BookList.Web
 
         void Application_Start(object sender, EventArgs e)
         {
-            AreaRegistration.RegisterAllAreas();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             FluentValidationModelValidatorProvider.Configure();

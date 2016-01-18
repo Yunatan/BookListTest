@@ -20,7 +20,7 @@ namespace BookList.Web.Controllers
             var books = jtSorting.IsNullOrEmpty()
                 ? bookRepository.GetAllBooks()
                 : bookRepository.GetBooksSorted(jtSorting);
-            return Json(new { Result = "OK", Records = books });
+            return Json(new { Result = "OK", Records = books, Sorting = jtSorting });
         }
 
         [HttpPost]
