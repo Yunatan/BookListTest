@@ -7,7 +7,6 @@ using BookList.Web.Controllers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using FluentValidation.Mvc;
-using BookList.Web.App_Start;
 using System.Web.Optimization;
 
 namespace BookList.Web

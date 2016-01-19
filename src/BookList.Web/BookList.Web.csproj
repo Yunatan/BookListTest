@@ -167,6 +167,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\validationEngine.jquery.css" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-2.2.0.js" />
@@ -175,6 +176,8 @@
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery\jquery.validationEngine-en.js" />
+    <Content Include="Scripts\jquery\jquery.validationEngine.js" />
     <Content Include="Scripts\jtable\extensions\jquery.jtable.aspnetpagemethods.js" />
     <Content Include="Scripts\jtable\extensions\jquery.jtable.aspnetpagemethods.min.js" />
     <Content Include="Scripts\jtable\external\json2.js" />

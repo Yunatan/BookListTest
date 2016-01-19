@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    @Styles.Render("~/bundles/css/jqueryui")
+    @Styles.Render("~/bundles/css/jtable")
     @Scripts.Render("~/bundles/js/jquery")
     @Scripts.Render("~/bundles/js/jqueryui")
     @Scripts.Render("~/bundles/js/jtable")
-    @Styles.Render("~/bundles/css/jqueryui")
-    @Styles.Render("~/bundles/css/jtable")
     <script src="~/Scripts/index.js"></script>
 </head>
 <body>
@@ -38,45 +38,58 @@
                 },
                 Title: {
                     title: 'Title',
-                    sorting: true
-                    //width: '30%'
+                    sorting: true,
+                    inputClass: 'validate[required, maxSize[30]]',
+                    width: '20%'
                 },
                 PublishDate: {
                     title: 'Publish Date',
-                    sorting: true
+                    sorting: true,
+                    inputClass: 'validate[required, min[1800]]',
+                    width: '15%'
                 },
                 Publisher: {
                     title: 'Publisher',
-                    sorting: false
+                    sorting: false,
+                    inputClass: 'validate[maxSize[30]]',
+                    width: '20%'
                 },
                 Pages: {
                     title: 'Pages',
-                    sorting: false
-                    //width: '13%'
+                    sorting: false,
+                    inputClass: 'validate[required, min[0], max[10000]]',
+                    width: '15%'
                 },
                 Isbn: {
                     title: 'ISBN',
-                    sorting: false
-                    //width: '12%'
+                    sorting: false,
+                    inputClass: 'validate[required, funcCall[checkIsbn]]',
+                    width: '15%'
                 },
                 Authors: {
                     title: 'Authors',
-                    //width: '15%'
+                    width: '15%',
                     sorting: false,
                     edit: false,
                     create: false,
-                    display: function (bookData) {
+                    display: function(bookData) {
                         var $authorsLink = $('<a href="#" title="Edit Authors">Edit Authors</a>');
-                        $authorsLink.click(function () {
-                            $('#BookTable').jtable('openChildTable',
-                                $authorsLink.closest('tr'),
+                        $authorsLink.click(function() {
+                            var tr = $(this).parents("tr"),
+                                isChildRowOpen = $('#BookTable').jtable("isChildRowOpen", tr);
+                            if (isChildRowOpen) {
+                                $($('#BookTable').jtable("getChildRow", tr)).slideUp();
+                                return;
+                            } else {
+                                $('#BookTable').jtable('openChildTable',
+                                    $authorsLink.closest('tr'),
                                     {
-                                    title: bookData.record.Title + ' - Authors',
-                                    actions: {
-                                        listAction: '@Url.Action("AuthorList", "Author")' + '?bookId=' + bookData.record.BookId,
-                                        deleteAction: '@Url.Action("DeleteAuthor", "Author")',
-                                        updateAction: '@Url.Action("UpdateAuthor", "Author")',
-                                        createAction: '@Url.Action("CreateAuthor", "Author")'
+                                        title: bookData.record.Title + ' - Authors',
+                                        actions: {
+                                            listAction: '@Url.Action("AuthorList", "Author")' + '?bookId=' + bookData.record.BookId,
+                                            deleteAction: '@Url.Action("DeleteAuthor", "Author")',
+                                            updateAction: '@Url.Action("UpdateAuthor", "Author")',
+                                            createAction: '@Url.Action("CreateAuthor", "Author")'
                                     },
                                     fields: {
                                         AuthorId: {
@@ -86,20 +99,42 @@
                                             list: false
                                         },
                                         FirstName: {
-                                            title: 'First Name'
+                                            title: 'First Name',
+                                            inputClass: 'validate[required, maxSize[20]]'
                                         },
                                         LastName: {
-                                            title: 'Last Name'
-                                            //width: '30%'
+                                            title: 'Last Name',
+                                            inputClass: 'validate[required, maxSize[20]]'
                                         }
+                                    },
+                                    formCreated: function (event, data) {
+                                        data.form.validationEngine();
+                                    },
+                                    formSubmitting: function (event, data) {
+                                        return data.form.validationEngine('validate');
+                                    },
+                                    formClosed: function (event, data) {
+                                        data.form.validationEngine('hide');
+                                        data.form.validationEngine('detach');
                                     }
-                                }, function (data) { //opened handler
+                                }, function(data) { //opened handler
                                     data.childTable.jtable('load');
                                 });
+                            }
                         });
                         return $authorsLink;
                     }
                 }
+            },
+            formCreated: function(event, data) {
+                data.form.validationEngine();
+            },
+            formSubmitting: function(event, data) {
+                return data.form.validationEngine('validate');
+            },
+            formClosed: function(event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
             },
             recordsLoaded: function(event, data) {
                 insertParam('jtSorting', data.serverResponse.Sorting);
