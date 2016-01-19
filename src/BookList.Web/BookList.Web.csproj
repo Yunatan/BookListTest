@@ -134,6 +134,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\loader.gif" />
+    <Content Include="Content\PlaceholderBook.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -176,6 +178,7 @@
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery\jquery.form.js" />
     <Content Include="Scripts\jquery\jquery.validationEngine-en.js" />
     <Content Include="Scripts\jquery\jquery.validationEngine.js" />
     <Content Include="Scripts\jtable\extensions\jquery.jtable.aspnetpagemethods.js" />
@@ -300,6 +303,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
     <Compile Include="Installers\ControllersInstaller.cs" />
     <Compile Include="Installers\RepositoriesInstaller.cs" />
     <Compile Include="Models\JtGridModel.cs" />
@@ -337,7 +345,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookList.Core\BookList.Core.csproj">
       <Project>{4289d13f-295f-49bb-b8b0-c57394eadd14}</Project>

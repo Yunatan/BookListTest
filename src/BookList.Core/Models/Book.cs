@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using System.Web.Script.Serialization;
 using BookList.Core.Validators;
 using FluentValidation.Attributes;
 
@@ -9,7 +9,11 @@ namespace BookList.Core.Models
     {
         public int BookId { get; set; }
 
-        public Image Image { get; set; }
+        [ScriptIgnore]
+        public byte[] Image { get; set; }
+
+        [ScriptIgnore]
+        public string ImageType { get; set; }
 
         public string Isbn { get; set; }
 

@@ -58,7 +58,7 @@
                     title: 'Pages',
                     sorting: false,
                     inputClass: 'validate[required, min[0], max[10000]]',
-                    width: '15%'
+                    width: '5%'
                 },
                 Isbn: {
                     title: 'ISBN',
@@ -68,7 +68,7 @@
                 },
                 Authors: {
                     title: 'Authors',
-                    width: '15%',
+                    width: '10%',
                     sorting: false,
                     edit: false,
                     create: false,
@@ -90,39 +90,49 @@
                                             deleteAction: '@Url.Action("DeleteAuthor", "Author")',
                                             updateAction: '@Url.Action("UpdateAuthor", "Author")',
                                             createAction: '@Url.Action("CreateAuthor", "Author")'
-                                    },
-                                    fields: {
-                                        AuthorId: {
-                                            key: true,
-                                            create: false,
-                                            edit: false,
-                                            list: false
                                         },
-                                        FirstName: {
-                                            title: 'First Name',
-                                            inputClass: 'validate[required, maxSize[20]]'
+                                        fields: {
+                                            AuthorId: {
+                                                key: true,
+                                                create: false,
+                                                edit: false,
+                                                list: false
+                                            },
+                                            FirstName: {
+                                                title: 'First Name',
+                                                inputClass: 'validate[required, maxSize[20]]'
+                                            },
+                                            LastName: {
+                                                title: 'Last Name',
+                                                inputClass: 'validate[required, maxSize[20]]'
+                                            }
                                         },
-                                        LastName: {
-                                            title: 'Last Name',
-                                            inputClass: 'validate[required, maxSize[20]]'
+                                        formCreated: function(event, data) {
+                                            data.form.validationEngine();
+                                        },
+                                        formSubmitting: function(event, data) {
+                                            return data.form.validationEngine('validate');
+                                        },
+                                        formClosed: function(event, data) {
+                                            data.form.validationEngine('hide');
+                                            data.form.validationEngine('detach');
                                         }
-                                    },
-                                    formCreated: function (event, data) {
-                                        data.form.validationEngine();
-                                    },
-                                    formSubmitting: function (event, data) {
-                                        return data.form.validationEngine('validate');
-                                    },
-                                    formClosed: function (event, data) {
-                                        data.form.validationEngine('hide');
-                                        data.form.validationEngine('detach');
-                                    }
-                                }, function(data) { //opened handler
-                                    data.childTable.jtable('load');
-                                });
+                                    }, function(data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    });
                             }
                         });
                         return $authorsLink;
+                    }
+                },
+                image_upload: {
+                    title: 'Book Image',
+                    width: '15%',
+                    list: true,
+                    create: false,
+                    edit: false,
+                    display: function(data) {
+                        return '<div id=' + data.record.BookId + '><form id="form' + data.record.BookId + '" method="post" enctype="multipart/form-data" action="@Url.Action("UploadBookImage", "Book")"><input type="file" name="coverimg" id="' + data.record.BookId + '" class="upload"/><input type="hidden" name="bookId" value="' + data.record.BookId + '"/></form></div><div id="preview' + data.record.BookId + '"><img width="40%" height="40%" src="@Url.Action("GetBookImage", "Book")' + '?bookId=' + data.record.BookId + '"/></div>';
                     }
                 }
             },
@@ -138,6 +148,21 @@
             },
             recordsLoaded: function(event, data) {
                 insertParam('jtSorting', data.serverResponse.Sorting);
+
+                $('.upload').on('change', function () {
+                    var id = this.id;
+                    $("#preview" + id).html('');
+                    $("#preview" + id).html('<img src="Content/loader.gif" alt="Uploading...."/>');
+                    $("#form" + id).ajaxSubmit({
+                        success: function(data) {
+                            $('#preview' + id).html("<img width='40%' height='40%' src='@Url.Action("GetBookImage", "Book")" + "?bookId=" + id + '&_=' + new Date().getTime() + "'/>");
+                        },
+                        error: function(data) {
+                            $("#preview" + id).html('');
+                        }
+                    });
+
+                });
             }
         });
 

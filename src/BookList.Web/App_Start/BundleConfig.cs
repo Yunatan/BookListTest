@@ -15,7 +15,8 @@ namespace BookList.Web
             bundles.Add(new ScriptBundle("~/bundles/js/jtable").Include(
                 "~/Scripts/jtable/jquery.jtable.js",
                 "~/Scripts/jquery/jquery.validationEngine.js",
-                "~/Scripts/jquery/jquery.validationEngine-en.js"));
+                "~/Scripts/jquery/jquery.validationEngine-en.js",
+                "~/Scripts/jquery/jquery.form.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css/jqueryui").IncludeDirectory(
                 "~/Content/themes/base", "*.css"));

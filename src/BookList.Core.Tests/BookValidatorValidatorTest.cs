@@ -115,7 +115,7 @@ namespace BookList.Core.Tests
         [Test]
         public void Should_NotHaveError_When_ImageNameIsNull()
         {
-            bookValidator.ShouldNotHaveValidationErrorFor(book => book.Image, null as Image );
+            bookValidator.ShouldNotHaveValidationErrorFor(book => book.Image, null as byte[] );
         }
     }
 }

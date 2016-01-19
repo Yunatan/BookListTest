@@ -1,4 +1,8 @@
-﻿using BookList.Core.Models;
+﻿using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Web;
+using BookList.Core.Models;
 using System.Web.Mvc;
 using BookList.Core.Repositories;
 using Castle.Core.Internal;
@@ -9,9 +13,35 @@ namespace BookList.Web.Controllers
     {
         protected readonly IBookRepository bookRepository;
 
+        private readonly byte[] placeholderImage = ImageToByte(Images.PlaceholderBook);
+        private readonly string placeholderImageType = "image/png";
+
         public BookController(IBookRepository bookRepository)
         {
             this.bookRepository = bookRepository;
+        }
+
+        [HttpPost]
+        public JsonResult UploadBookImage(HttpPostedFileBase coverimg, int bookId)
+        {
+            var book = bookRepository.GetAllBooks().First(x => x.BookId.Equals(bookId));
+
+            book.ImageType = coverimg.ContentType;
+            using (var binaryReader = new BinaryReader(coverimg.InputStream))
+            {
+                book.Image = binaryReader.ReadBytes(coverimg.ContentLength);
+            }
+
+            bookRepository.UpdateBook(book);
+            return Json(new { Result = "OK" });
+        }
+
+        [HttpGet]
+        public FileResult GetBookImage(int bookId)
+        {
+            var book = bookRepository.GetAllBooks().First(x => x.BookId.Equals(bookId));
+
+            return File(book.Image ?? placeholderImage, book.ImageType ?? placeholderImageType);
         }
 
         [HttpPost]
@@ -62,6 +92,19 @@ namespace BookList.Web.Controllers
         {
             bookRepository.DeleteBook(bookId);
             return Json(new { Result = "OK" });
+        }
+
+        private static byte[] ImageToByte(Image img)
+        {
+            byte[] byteArray;
+            using (var stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                stream.Close();
+
+                byteArray = stream.ToArray();
+            }
+            return byteArray;
         }
     }
 }
