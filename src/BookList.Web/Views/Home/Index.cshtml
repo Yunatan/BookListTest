@@ -70,16 +70,16 @@
                         $authorsLink.click(function () {
                             $('#BookTable').jtable('openChildTable',
                                 $authorsLink.closest('tr'),
-                                {
+                                    {
                                     title: bookData.record.Title + ' - Authors',
                                     actions: {
                                         listAction: '@Url.Action("AuthorList", "Author")' + '?bookId=' + bookData.record.BookId,
-                                        deleteAction: '@Url.Action("DeleteAuthor", "Author")' + '?bookId=' + bookData.record.BookId,
-                                        updateAction: '@Url.Action("UpdateAuthor", "Author")' + '?bookId=' + bookData.record.BookId,
-                                        createAction: '@Url.Action("CreateAuthor", "Author")' + '?bookId=' + bookData.record.BookId
+                                        deleteAction: '@Url.Action("DeleteAuthor", "Author")',
+                                        updateAction: '@Url.Action("UpdateAuthor", "Author")',
+                                        createAction: '@Url.Action("CreateAuthor", "Author")'
                                     },
                                     fields: {
-                                        Id: {
+                                        AuthorId: {
                                             key: true,
                                             create: false,
                                             edit: false,
